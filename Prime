@@ -1,0 +1,29 @@
+package EX1;
+
+import java.util.Scanner;
+
+public class Glass {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter a number: ");
+        int n = sc.nextInt();
+
+        if (n <= 1) {
+            System.out.println("Not prime");
+            sc.close();
+            return;
+        }
+
+        int limit = (int) Math.sqrt(n);
+        for (int i = 2; i <= limit; i++) {
+            if (n % i == 0) {
+                System.out.println("Not prime");
+                sc.close();
+                return;
+            }
+        }
+
+        System.out.println("Prime");
+        sc.close();
+    }
+}
