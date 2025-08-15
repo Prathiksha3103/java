@@ -1,0 +1,22 @@
+public class Car {
+	private String model;
+	private String color;
+	public Car(String model, String color) {
+	this.model = model;
+	this.color = color;
+	 }
+	public void start() {
+	System.out.println("Car started");
+	}
+
+	public void stop() {
+	System.out.println("Car stopped");
+	}
+	
+	public static void main(String[] args) {
+	System.out.println("PRATHIKSHA S ");
+	System.out.println("2117240070229");
+	Car car1 = new Car("Tesla", "Red");
+	car1.start();
+	}
+}
