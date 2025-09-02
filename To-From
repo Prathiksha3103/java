@@ -1,0 +1,43 @@
+package assignment;
+
+import java.io.IOException;
+import java.nio.ByteBuffer;
+import java.nio.channels.FileChannel;
+import java.nio.file.*;
+
+public class Device {
+
+    public static void main(String[] args) throws IOException {
+        Path source = Paths.get("source.dat");
+
+        
+        if (!Files.exists(source)) {
+            System.out.println("Creating source.dat with dummy content...");
+            Files.write(source, "This is a sample content for testing file copy performance.".getBytes());
+        }
+
+        
+        Path toTarget = Paths.get("copy-transferTo.dat");
+        long startTo = System.nanoTime();
+        try (FileChannel in = FileChannel.open(source, StandardOpenOption.READ);
+             FileChannel out = FileChannel.open(toTarget,
+                     StandardOpenOption.CREATE,
+                     StandardOpenOption.TRUNCATE_EXISTING,
+                     StandardOpenOption.WRITE)) {
+            in.transferTo(0, in.size(), out);
+        }
+        System.out.println("transferTo time: " + (System.nanoTime() - startTo) / 1_000_000 + " ms");
+
+        
+        Path fromTarget = Paths.get("copy-transferFrom.dat");
+        long startFrom = System.nanoTime();
+        try (FileChannel in = FileChannel.open(source, StandardOpenOption.READ);
+             FileChannel out = FileChannel.open(fromTarget,
+                     StandardOpenOption.CREATE,
+                     StandardOpenOption.TRUNCATE_EXISTING,
+                     StandardOpenOption.WRITE)) {
+            out.transferFrom(in, 0, in.size());
+        }
+        System.out.println("transferFrom time: " + (System.nanoTime() - startFrom) / 1_000_000 + " ms");
+    }
+}
