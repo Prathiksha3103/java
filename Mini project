@@ -1,66 +1,83 @@
 package project;
+import java.util.Scanner;
 class User {
-    String name, email;
-    User(String name, String email) {
-        this.name = name;
-        this.email = email;
-    }
-    void displayDetails() {
-        System.out.println("Name: " + name);
-        System.out.println("Email: " + email);
-    }
+ String name, email;
+
+ User(String name, String email) {
+     this.name = name;
+     this.email = email;
+ }
+ void displayDetails() {
+     System.out.println("Name: " + name);
+     System.out.println("Email: " + email);
+ }
 }
 class Student extends User {
-    int rollNo;
-    double cgpa;
-    String domain;
-    Student(String name, String email, int rollNo, double cgpa, String domain) {
-        super(name, email);
-        this.rollNo = rollNo;
-        this.cgpa = cgpa;
-        this.domain = domain;
-    }
-    @Override
-    void displayDetails() {
-        super.displayDetails();
-        System.out.println("Roll No: " + rollNo);
-        System.out.println("CGPA: " + cgpa);
-        System.out.println("Domain: " + domain);
-    }
+ int rollNo;
+ double cgpa;
+ String domain;
+ Student(String name, String email, int rollNo, double cgpa, String domain) {
+     super(name, email);
+     this.rollNo = rollNo;
+     this.cgpa = cgpa;
+     this.domain = domain;
+ }
+ @Override
+ void displayDetails() {
+     super.displayDetails();
+     System.out.println("Roll No: " + rollNo);
+     System.out.println("CGPA: " + cgpa);
+     System.out.println("Domain: " + domain);
+ }
 }
-class Company extends User {
-    String companyName, domainRequired;
-    double requiredCgpa;
-    Company(String companyName, String email, String domainRequired, double requiredCgpa) {
-        super(companyName, email);
-        this.companyName = companyName;
-        this.domainRequired = domainRequired;
-        this.requiredCgpa = requiredCgpa;
-    }
-    @Override
-    void displayDetails() {
-        System.out.println("Company: " + companyName);
-        System.out.println("Domain Required: " + domainRequired);
-        System.out.println("Min CGPA: " + requiredCgpa);
-    }
-    boolean checkEligibility(Student s) {
-        return (s.cgpa >= requiredCgpa && s.domain.equalsIgnoreCase(domainRequired));
-    }
+class Company {
+ String companyName, email, domainRequired;
+ double requiredCgpa;
+ Company(String companyName, String email, String domainRequired, double requiredCgpa) {
+     this.companyName = companyName;
+     this.email = email;
+     this.domainRequired = domainRequired;
+     this.requiredCgpa = requiredCgpa;
+ }
+ void displayDetails() {
+     System.out.println("Company: " + companyName);
+     System.out.println("Email: " + email);
+     System.out.println("Domain Required: " + domainRequired);
+     System.out.println("Min CGPA: " + requiredCgpa);
+ }
+
+ boolean checkEligibility(Student s) {
+     return (s.cgpa >= requiredCgpa && s.domain.equalsIgnoreCase(domainRequired));
+ }
 }
 public class InternshipPortal {
-    public static void main(String[] args) {
-        Student s1 = new Student("Akshaya", "akshaya@gmail.com", 101, 8.5, "Data Science");
-        s1.displayDetails();
-        System.out.println();  
-        Company c1 = new Company("TechSoft", "hr@techsoft.com", "Data Science", 8.0);
-        c1.displayDetails();
-        System.out.println()
-        if (c1.checkEligibility(s1)) {
-            System.out.println(s1.name + " is eligible and selected for " + c1.companyName + " internship!");
-        } else {
-            System.out.println(s1.name + " is not eligible for " + c1.companyName + " internship.");
-        }
-    }
-}
+	 public static void main(String[] args) {
+	     Scanner sc = new Scanner(System.in);
+	     System.out.println("Enter Student Name: ");
+	     String sName = sc.nextLine();
+	     System.out.println("Enter Student Email: ");
+	     String sEmail = sc.nextLine();
+	     System.out.println("Enter Roll No: ");
+	     int rollNo = sc.nextInt();
+	     System.out.println("Enter CGPA: ");
+	     double cgpa = sc.nextDouble();
+	     sc.nextLine(); 
+	     System.out.println("Enter Domain: ");
+	     String sDomain = sc.nextLine();
+	     Student student = new Student(sName, sEmail, rollNo, cgpa, sDomain);
+	     Company company = new Company("TechSoft", "hr@techsoft.com", "Data Science", 8.0);
+	     System.out.println("\n--- Student Details ---");
+	     student.displayDetails();
+	     System.out.println("\n--- Company Details ---");
+	     company.displayDetails();
+	     System.out.println();
+	     if (company.checkEligibility(student)) {
+	         System.out.println(student.name + " is eligible and selected for " + company.companyName + " internship!");
+	     } else {
+	         System.out.println(student.name + " is not eligible for " + company.companyName + " internship.");
+	     }
+	     sc.close();
+	 }
+	}
 
 
