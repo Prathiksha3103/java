@@ -1,0 +1,96 @@
+package oops; 
+import java.util.Scanner; 
+//Step 1: Define interface 
+interface BankingService { 
+void deposit(double amount); 
+void withdraw(double amount); 
+void showBalance(); 
+} 
+//Step 2: Implement Account class 
+class Account implements BankingService { 
+private double balance; 
+public Account() { 
+this.balance = 0.0; 
+} 
+
+@Override 
+public void deposit(double amount) { 
+if (amount > 0) { 
+balance += amount; 
+System.out.println("Deposited: ₹" + amount); 
+showBalance(); 
+} else { 
+System.out.println("Invalid deposit amount!"); 
+} 
+} 
+@Override 
+public void withdraw(double amount) { 
+if (amount <= 0) { 
+System.out.println("Invalid withdrawal amount!"); 
+} else if (amount > balance) { 
+System.out.println("Insufficient funds!"); 
+} else { 
+balance -= amount; 
+System.out.println("Withdrawn: ₹" + amount); 
+
+showBalance(); 
+} 
+} 
+@Override 
+public void showBalance() { 
+System.out.println("Current Balance: ₹" + balance); 
+} 
+} 
+//Step 3: Transaction class 
+class Transaction { 
+public void logTransaction(String message) { 
+System.out.println("Transaction recorded: " + message); 
+} 
+} 
+//Step 4: Main class 
+public class EX6 { 
+public static void main(String[] args) { 
+System.out.println("Priyadharshini K"); 
+
+System.out.println("2117240070233"); 
+Scanner sc = new Scanner(System.in); 
+Account account = new Account(); 
+Transaction transaction = new Transaction(); 
+while (true) { 
+System.out.println("\n--- Banking Menu ---"); 
+System.out.println("1. Deposit"); 
+System.out.println("2. Withdraw"); 
+System.out.println("3. Show Balance"); 
+System.out.println("4. Exit"); 
+System.out.print("Enter choice: "); 
+int choice = sc.nextInt(); 
+switch (choice) { 
+case 1: 
+System.out.print("Enter deposit amount: "); 
+double dep = sc.nextDouble(); 
+account.deposit(dep); 
+transaction.logTransaction("Deposited ₹" + dep); 
+break; 
+
+case 2: 
+System.out.print("Enter withdrawal amount: "); 
+double wd = sc.nextDouble(); 
+account.withdraw(wd); 
+transaction.logTransaction("Attempted withdrawal of ₹" + wd); 
+break; 
+case 3: 
+account.showBalance(); 
+break; 
+case 4: 
+System.out.println("Exiting... Thank you!"); 
+sc.close(); 
+return; 
+default: 
+System.out.println("Invalid choice! Try again."); 
+} 
+} 
+}
+}
+
+
+ 
