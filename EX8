@@ -1,0 +1,79 @@
+package oops1; 
+import java.util.Scanner; 
+class Racer extends Thread { 
+private String name; 
+private int sleepTime; 
+public Racer(String name, int sleepTime) { 
+this.name = name; 
+this.sleepTime = sleepTime; 
+} 
+public void run() { 
+for (int step = 1; step <= 5; step++) { 
+System.out.println(name + " - Step " + step); 
+try { 
+Thread.sleep(sleepTime); 
+} catch (InterruptedException e) { 
+System.out.println(name + " interrupted."); 
+} 
+} 
+System.out.println(name + " finished the race!"); 
+} 
+} 
+public class Ex8 { 
+public static void main(String[] args) { 
+System.out.println("Priyadharshini K"); 
+System.out.println("2117240070233"); 
+Scanner sc = new Scanner(System.in); 
+System.out.println("Select Test Case (1 to 5):"); 
+int choice = sc.nextInt(); 
+
+switch (choice) { 
+case 1: 
+System.out.println("Running TC1: Two threads start → Both race together"); 
+Racer tc1a = new Racer("Thread A", 500); 
+Racer tc1b = new Racer("Thread B", 500); 
+tc1a.start(); 
+tc1b.start(); 
+break; 
+case 2: 
+System.out.println("Running TC2: Sleep time different → One finishes first"); 
+Racer tc2a = new Racer("Thread A", 300); // Faster 
+Racer tc2b = new Racer("Thread B", 700); // Slower 
+tc2a.start(); 
+tc2b.start(); 
+break; 
+case 3: 
+System.out.println("Running TC3: Race between thread A and thread B → Output may vary"); 
+Racer tc3a = new Racer("Thread A", 400); 
+Racer tc3b = new Racer("Thread B", 600); 
+tc3a.start(); 
+tc3b.start(); 
+break; 
+case 4: 
+System.out.println("Running TC4: Add a third thread → Output includes three racers"); 
+Racer tc4a = new Racer("Thread A", 500); 
+Racer tc4b = new Racer("Thread B", 500); 
+
+Racer tc4c = new Racer("Thread C", 500); 
+tc4a.start(); 
+tc4b.start(); 
+tc4c.start(); 
+break; 
+case 5: 
+System.out.println("Running TC5: Threads with same sleep → Output may interleave"); 
+Racer tc5a = new Racer("Thread A", 500); 
+Racer tc5b = new Racer("Thread B", 500); 
+Racer tc5c = new Racer("Thread C", 500); 
+tc5a.start(); 
+tc5b.start(); 
+tc5c.start(); 
+break; 
+default: 
+System.out.println("Invalid choice. Please select between 1 and 5."); 
+} 
+sc.close(); 
+} 
+} 
+Output: 
+TC 1:
+
