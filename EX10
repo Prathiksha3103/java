@@ -1,0 +1,68 @@
+package socketprogram; 
+import java.io.*; 
+import java.net.*; 
+public class Server { 
+public static void main(String[] args) { 
+try (ServerSocket ss = new ServerSocket(1234)) { 
+System.out.println("Server started. Waiting for clients..."); 
+while (true) { 
+Socket s = ss.accept(); 
+System.out.println("Client connected!"); 
+BufferedReader in = new BufferedReader(new InputStreamReader(s.getInputStream())); 
+PrintWriter out = new PrintWriter(s.getOutputStream(), true); 
+String line; 
+int count = 1; 
+// Respond to client message immediately 
+while ((line = in.readLine()) != null) { 
+if (line.equalsIgnoreCase("bye")) break; 
+out.println("Line " + count + ": " + line); // Reply instantly 
+System.out.println("Received from client: " + line); 
+count++; 
+} 
+System.out.println("Client disconnected.\n"); 
+s.close(); 
+} 
+} catch (IOException e) { 
+System.out.println("Server error: " + e.getMessage()); 
+} 
+} 
+} 
+package socketprogram; 
+import java.io.*; 
+import java.net.*; 
+import java.util.Scanner; 
+
+public class Client { 
+public static void main(String[] args) { 
+try { 
+Socket s = new Socket("localhost", 1234); 
+System.out.println("Priyadharshini K"); 
+System.out.println("2117240070233"); 
+Scanner sc = new Scanner(System.in); 
+BufferedReader in = new BufferedReader(new InputStreamReader(s.getInputStream())); 
+PrintWriter out = new PrintWriter(s.getOutputStream(), true); 
+System.out.println("Connected to server!"); 
+System.out.println("Enter text (type 'bye' to quit):"); 
+String msg; 
+while (true) { 
+msg = sc.nextLine(); 
+out.println(msg); 
+if (msg.equalsIgnoreCase("bye")) break; 
+System.out.println("Server: " + in.readLine()); 
+} 
+s.close(); 
+sc.close(); 
+} catch (IOException e) { 
+System.out.println("Connection failed: " + e.getMessage()); 
+} 
+} 
+} 
+
+ 
+
+ 
+
+ 
+
+ 
+
