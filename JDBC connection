@@ -1,0 +1,147 @@
+Program TC 1 : 
+package JDBC; 
+import java.sql.Connection; 
+import java.sql.DriverManager; 
+import java.sql.SQLException; 
+public class JDBCTest { 
+public static void main(String[] args) { 
+String url ="jdbc:mysql://localhost:3306/student?useSSL=false&serverTimezone=UTC"; 
+String user = "root"; 
+String password = "NewPassword@123"; 
+try { 
+Class.forName("com.mysql.cj.jdbc.Driver"); 
+Connection conn = DriverManager.getConnection(url, user, password); 
+System.out.println("Connected"); 
+conn.close(); 
+} catch (ClassNotFoundException e) { 
+System.out.println("Driver not found"); 
+e.printStackTrace(); 
+} catch (SQLException e) { 
+System.out.println("Connection failed: " + e.getMessage()); 
+} 
+} 
+} 
+Output : 
+TC 2: 
+package JDBC; 
+import java.sql.Connection; 
+import java.sql.DriverManager; 
+import java.sql.ResultSet; 
+import java.sql.Statement; 
+
+import java.sql.SQLException; 
+public class JDBCTest { 
+public static void main(String[] args) { 
+String url = "jdbc:mysql://localhost:3306/student?useSSL=false&serverTimezone=UTC"; 
+String user = "root"; 
+String password = "NewPassword@123"; 
+try { 
+Class.forName("com.mysql.cj.jdbc.Driver"); 
+Connection con = DriverManager.getConnection(url, user, password); 
+Statement stmt = con.createStatement(); 
+String query = "SELECT * FROM student_info"; // Your table name 
+ResultSet rs = stmt.executeQuery(query); 
+System.out.println("Priyadharshini K"); 
+System.out.println("2117240070233"); 
+System.out.println("ID\tName\tmarks"); 
+while (rs.next()) { 
+System.out.println(rs.getInt("id") + "\t" + rs.getString("name") + "\t" + rs.getDouble("marks")); 
+} 
+rs.close(); 
+stmt.close(); 
+con.close(); 
+} catch (Exception e) { 
+System.out.println("Error: " + e.getMessage()); 
+} 
+} 
+} 
+Output: 
+TC 3: 
+package JDBC; 
+import java.sql.Connection; 
+
+import java.sql.DriverManager; 
+import java.sql.SQLException; 
+public class JDBCTest { 
+public static void main(String[] args) { 
+String url = "jdbc:mysql://localhost:3306/student?useSSL=false&serverTimezone=UTC"; 
+String user = "root"; 
+String password = "WrongPassword@123"; 
+System.out.println("Priyadharshini K"); 
+System.out.println("2117240070233"); 
+try { 
+Class.forName("com.mysql.cj.jdbc.Driver"); 
+Connection con = DriverManager.getConnection(url, user, password); 
+System.out.println("Connected successfully!"); 
+con.close(); 
+} catch (SQLException e) { 
+System.out.println("Access denied: " + e.getMessage()); 
+} catch (ClassNotFoundException e) { 
+System.out.println("Driver not found!"); 
+} 
+} 
+} 
+Output: 
+TC 4: 
+package JDBC; 
+import java.sql.Connection; 
+import java.sql.DriverManager; 
+import java.sql.Statement; 
+public class JDBCTest { 
+public static void main(String[] args) { 
+String url = "jdbc:mysql://localhost:3306/student?useSSL=false&serverTimezone=UTC"; 
+String user = "root"; 
+
+ 
+String password = "NewPassword@123"; 
+System.out.println("Priyadharshini K"); 
+System.out.println("2117240070233"); 
+try { 
+Class.forName("com.mysql.cj.jdbc.Driver"); 
+Connection con = DriverManager.getConnection(url, user, password); 
+Statement stmt = con.createStatement(); 
+String query = ""; 
+boolean hasResult = stmt.execute(query); 
+if (!hasResult) { 
+System.out.println("No results or empty query executed."); 
+} 
+stmt.close(); 
+con.close(); 
+} catch (Exception e) { 
+System.out.println("Error: " + e.getMessage()); 
+} 
+} 
+} 
+Output : 
+ 
+TC 5: 
+package JDBC; 
+import java.sql.Connection; 
+import java.sql.DriverManager; 
+import java.sql.Statement; 
+import java.sql.SQLException; 
+public class JDBCTest { 
+public static void main(String[] args) { 
+String url = "jdbc:mysql://localhost:3306/student?useSSL=false&serverTimezone=UTC"; 
+String user = "root"; 
+String password = "NewPassword@123"; 
+System.out.println("Priyadharshini K"); 
+System.out.println("2117240070233"); 
+
+ 
+try { 
+Class.forName("com.mysql.cj.jdbc.Driver"); 
+Connection con = DriverManager.getConnection(url, user, password); 
+Statement stmt = con.createStatement(); 
+String query = "SELEC * FRM student_info"; 
+stmt.executeQuery(query); 
+stmt.close(); 
+con.close(); 
+} catch (SQLException e) { 
+System.out.println("SQLSyntaxErrorException: " + e.getMessage()); 
+} catch (ClassNotFoundException e) { 
+System.out.println("Driver not found!"); 
+} 
+} 
+} 
+Output :
